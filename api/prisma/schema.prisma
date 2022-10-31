@@ -9,3 +9,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model User {
+  id       Int     @default(autoincrement()) @id
+  email    String  @unique
+  password String
+  name     String?
+  boards   Board[]
+}
+
+model Board {
+  id        Int     @default(autoincrement()) @id
+  name      String
+  owner     User?   @relation(fields: [ownerId], references: [id])
+  ownerId   Int?
+  Columns     Column[]
+}
+
+model Column {
+  id        Int     @default(autoincrement()) @id
+  name      String
+
+  boardId     Int?
+  board       Board?   @relation(fields: [boardId], references: [id])
+
+  tasks     Task[]
+}
+
+
+model Task {
+  id          Int     @default(autoincrement()) @id
+  title       String
+  description String  
+  status      String  
+  
+  column       Column?   @relation(fields: [coloumnId], references: [id])
+  coloumnId     Int?
+  
+  subtasks    Subtask[]
+} 
+
+model Subtask {
+  id          Int     @default(autoincrement()) @id
+  title       String
+  isComplete  Boolean @default(false)
+  
+  task        Task?   @relation(fields: [taskId], references: [id])
+  taskId      Int?
+}
+
