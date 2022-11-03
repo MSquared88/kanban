@@ -1,13 +1,38 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {useAuth0} from '@auth0/auth0-react'
+import React from 'react'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {PageLoader} from './components/PageLoader'
+import {ProtectedRoute} from './components/ProtectedRoute'
 
-function App() {
+const AdminPage = () => <div>admin</div>
+const ProtectedPage = () => <div>ProtectedPage</div>
+const NotFoundPage = () => <div>not found</div>
+
+export const App: React.FC = () => {
+  const {isLoading} = useAuth0()
+
+  if (isLoading) {
+    return (
+      <div className="page-layout">
+        <PageLoader />
+      </div>
+    )
+  }
   return (
-    <div className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-      hello world
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<div>home</div>} />
+
+        <Route
+          path="/protected"
+          element={<ProtectedRoute component={ProtectedPage} />}
+        />
+        <Route
+          path="/admin"
+          element={<ProtectedRoute component={AdminPage} />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
