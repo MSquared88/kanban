@@ -11,7 +11,7 @@ export const Auth0ProviderWithConfig = ({
   const domain = import.meta.env.VITE_AUTH0_DOMAIN
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
   const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL
-  console.log(domain)
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE
 
   if (!(domain && clientId && redirectUri)) {
     return null
@@ -22,6 +22,8 @@ export const Auth0ProviderWithConfig = ({
       domain={domain}
       clientId={clientId}
       redirectUri={redirectUri}
+      audience={audience}
+      scope="read:current_user update:current_user_metadata"
     >
       {children}
     </Auth0Provider>

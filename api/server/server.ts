@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Router } from "express";
 
 //middleware
 import helmet from "helmet";
@@ -17,14 +17,7 @@ server.set("json spaces", 2);
 server.use(logger);
 
 const CLIENT_ORIGIN_URL = process.env.CLIENT_ORIGIN_URL;
-server.use(
-  cors({
-    origin: CLIENT_ORIGIN_URL,
-    methods: ["GET"],
-    allowedHeaders: ["Authorization", "Content-Type"],
-    maxAge: 86400,
-  })
-);
+server.use(cors());
 
 server.use(
   helmet({
@@ -44,5 +37,14 @@ server.use(
   })
 );
 
+server.get("/", (request, response) => {
+  response.status(200).json({ message: "success" });
+});
+
 server.use(jwtCheck);
+server.post("/protected", (request, response) => {
+  console.log(request.body);
+
+  response.status(200).json({ message: "success" });
+});
 export default server;
