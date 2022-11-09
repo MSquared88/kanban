@@ -8,6 +8,9 @@ import { notFoundHandler } from "./middleware/notFound.middleware";
 import logger from "./middleware/logger.middleware";
 import { jwtCheck } from "./middleware/jwtCheck.middleware";
 
+//routes
+import { router as boardRouter } from "./routes/board/board.route";
+
 //initiate server
 const server: Express = express();
 
@@ -40,8 +43,9 @@ server.use(
 server.get("/", (request, response) => {
   response.status(200).json({ message: "success" });
 });
+server.use("/api", boardRouter);
 
-server.use(jwtCheck);
+// server.use(jwtCheck);
 server.post("/protected", (request, response) => {
   console.log(request.body);
 
