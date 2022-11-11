@@ -13,7 +13,7 @@ CREATE TABLE "Column" (
     "name" TEXT NOT NULL,
     "boardId" INTEGER,
 
-    CONSTRAINT "Column_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Column_pkey" PRIMARY KEY ("id","name")
 );
 
 -- CreateTable
@@ -21,8 +21,8 @@ CREATE TABLE "Task" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
     "coloumnId" INTEGER,
+    "status" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -41,7 +41,7 @@ CREATE TABLE "Subtask" (
 ALTER TABLE "Column" ADD CONSTRAINT "Column_boardId_fkey" FOREIGN KEY ("boardId") REFERENCES "Board"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_coloumnId_fkey" FOREIGN KEY ("coloumnId") REFERENCES "Column"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_coloumnId_status_fkey" FOREIGN KEY ("coloumnId", "status") REFERENCES "Column"("id", "name") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Subtask" ADD CONSTRAINT "Subtask_taskId_fkey" FOREIGN KEY ("taskId") REFERENCES "Task"("id") ON DELETE SET NULL ON UPDATE CASCADE;
