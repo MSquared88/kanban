@@ -17,13 +17,15 @@ model Board {
 }
 
 model Column {
-  id        Int     @default(autoincrement()) @id
+  id        Int     @default(autoincrement())
   name      String
 
-  boardId     Int?
-  board       Board?   @relation(fields: [boardId], references: [id])
+  boardId   Int?
+  board     Board?   @relation(fields: [boardId], references: [id])
 
   tasks     Task[]
+
+  @@id([id, name])
 }
 
 
@@ -31,10 +33,10 @@ model Task {
   id          Int     @default(autoincrement()) @id
   title       String
   description String  
-  status      String  
   
-  column       Column?   @relation(fields: [coloumnId], references: [id])
-  coloumnId     Int?
+  column      Column?   @relation(fields: [coloumnId, status], references: [id, name])
+  coloumnId   Int?
+  status      String
   
   subtasks    Subtask[]
 } 

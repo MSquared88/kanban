@@ -1,4 +1,10 @@
-import type { Board, Column } from "@prisma/client";
+import type {
+  Board,
+  Column,
+  Task,
+  Subtask,
+  PrismaPromise,
+} from "@prisma/client";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -9,8 +15,9 @@ export async function getBoards(ownerId: Board["ownerId"]) {
     where: {
       ownerId,
     },
+    //includes joined tables
     include: {
-      columns: true, // Igitnclude all columns in the returned object
+      columns: { include: { tasks: { include: { subtasks: true } } } },
     },
   });
 }

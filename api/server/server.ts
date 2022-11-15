@@ -10,7 +10,7 @@ import { jwtCheck } from "./middleware/jwtCheck.middleware";
 
 //routes
 import { router as boardRouter } from "./routes/board/board.route";
-
+import { router as columnRouter } from "./routes/column/column.route";
 //initiate server
 const server: Express = express();
 
@@ -39,11 +39,13 @@ server.use(
     },
   })
 );
+server.use(errorHandler);
 
 server.get("/", (request, response) => {
   response.status(200).json({ message: "success" });
 });
 server.use("/api", boardRouter);
+server.use("/api", columnRouter);
 
 // server.use(jwtCheck);
 server.post("/protected", (request, response) => {
