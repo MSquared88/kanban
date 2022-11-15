@@ -39,6 +39,7 @@ server.use(
     },
   })
 );
+server.use(errorHandler);
 
 server.get("/", (request, response) => {
   response.status(200).json({ message: "success" });
