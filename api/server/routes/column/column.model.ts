@@ -31,3 +31,23 @@ export async function addColumn(
     },
   });
 }
+
+export async function updateColumn(
+  id: Column["id"],
+  name: Column["name"],
+  column: Column
+) {
+  console.log(column);
+  return prisma.column.update({
+    where: { id_name: { id, name } },
+    data: {
+      ...column,
+    },
+  });
+}
+
+export async function removeColumn(id: Column["id"], name: Column["name"]) {
+  return prisma.column.delete({
+    where: { id_name: { id, name } },
+  });
+}
