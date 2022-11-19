@@ -1,25 +1,25 @@
-import type { Board, Column, Task } from "@prisma/client";
+import type {Board, Column, Task} from '@prisma/client'
 
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export async function addColumn(
-  boardId: Board["id"],
-  name: Column["name"],
-  tasks?: Task[]
+  boardId: Board['id'],
+  name: Column['name'],
+  tasks?: Task[],
 ) {
   if (tasks) {
     return prisma.column.create({
       data: {
         boardId,
         name,
-        tasks: { create: [...tasks] },
+        tasks: {create: [...tasks]},
       },
       include: {
         tasks: true, // Include all columns in the returned object
       },
-    });
+    })
   }
   return prisma.column.create({
     data: {
@@ -29,25 +29,21 @@ export async function addColumn(
     include: {
       tasks: true,
     },
-  });
+  })
 }
 
-export async function updateColumn(
-  id: Column["id"],
-  name: Column["name"],
-  column: Column
-) {
-  console.log(column);
+export async function updateColumn(id: Column['id'], column: Column) {
+  console.log(column)
   return prisma.column.update({
-    where: { id_name: { id, name } },
+    where: {id},
     data: {
       ...column,
     },
-  });
+  })
 }
 
-export async function removeColumn(id: Column["id"], name: Column["name"]) {
+export async function removeColumn(id: Column['id']) {
   return prisma.column.delete({
-    where: { id_name: { id, name } },
-  });
+    where: {id},
+  })
 }
