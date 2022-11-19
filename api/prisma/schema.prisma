@@ -17,15 +17,15 @@ model Board {
 }
 
 model Column {
-  id        Int     @default(autoincrement())
+  id        Int     @default(autoincrement()) @id
   name      String
 
   boardId   Int?
-  board     Board?   @relation(fields: [boardId], references: [id])
+  board     Board?   @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   tasks     Task[]
 
-  @@id([id, name])
+  
 }
 
 
@@ -33,11 +33,8 @@ model Task {
   id          Int     @default(autoincrement()) @id
   title       String
   description String  
-  
-  column      Column?   @relation(fields: [coloumnId, status], references: [id, name])
-  coloumnId   Int?
-  status      String
-  
+  column      Column?   @relation(fields: [columnId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  columnId    Int?
   subtasks    Subtask[]
 } 
 
@@ -46,7 +43,7 @@ model Subtask {
   title       String
   isComplete  Boolean @default(false)
   
-  task        Task?   @relation(fields: [taskId], references: [id])
+  task        Task?   @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   taskId      Int?
 }
 
