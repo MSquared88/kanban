@@ -31,13 +31,13 @@ router.post(
   },
 )
 
-const updateFields = ['id', 'name', 'column']
+const updateFields = ['id', 'column']
 router.put(
   '/column',
   body(updateFields).exists(validationOptions),
   validationSchema,
   async (request: Request, response: Response) => {
-    const {id, name, column} = request.body
+    const {id, column} = request.body
 
     try {
       const updatedColumn = await columnModel.updateColumn(id, column)
