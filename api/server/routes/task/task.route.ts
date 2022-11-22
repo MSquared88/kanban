@@ -1,7 +1,4 @@
-import express, {Express, Router, Request, Response} from 'express'
-
-//types
-import {Board} from '@prisma/client'
+import express, {Router, Request, Response} from 'express'
 
 //validation
 import {
@@ -40,11 +37,12 @@ router.post(
 )
 
 router.put(
-  '/task',
-  body(['id', 'task']).exists(validationOptions),
+  '/task/:id',
+  body(['task']).exists(validationOptions),
   validationSchema,
   async (request: Request, response: Response) => {
-    const {id, task} = request.body
+    const id = request.params.id
+    const {task} = request.body
 
     try {
       const updatedTask = await taskModel.updateTask(id, task)
@@ -56,19 +54,14 @@ router.put(
   },
 )
 
-router.delete(
-  '/task',
-  body('id').exists(validationOptions),
-  validationSchema,
-  async (request: Request, response: Response) => {
-    const {id} = request.body
+router.delete('/task/:id', async (request: Request, response: Response) => {
+  const id = request.params.id
 
-    try {
-      const task = await taskModel.removeTask(id)
-      response.status(200).json(task)
-    } catch (error) {
-      console.log(error)
-      response.status(500).json({message: 'could not add task', error})
-    }
-  },
-)
+  try {
+    const task = await taskModel.removeTask(id)
+    response.status(200).json(task)
+  } catch (error) {
+    console.log(error)
+    response.status(500).json({message: 'could not add task', error})
+  }
+})
