@@ -11,16 +11,16 @@ datasource db {
 }
 model Board {
   ownerId   String
-  id        Int     @default(autoincrement()) @id
+  id        String @id @default(cuid())
   name      String
   columns   Column[]
 }
 
 model Column {
-  id        Int     @default(autoincrement()) @id
+  id        String @id @default(cuid())
   name      String
 
-  boardId   Int?
+  boardId   String?
   board     Board?   @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   tasks     Task[]
@@ -30,20 +30,20 @@ model Column {
 
 
 model Task {
-  id          Int     @default(autoincrement()) @id
+  id          String @id @default(cuid())
   title       String
   description String  
   column      Column?   @relation(fields: [columnId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  columnId    Int?
+  columnId    String?
   subtasks    Subtask[]
 } 
 
 model Subtask {
-  id          Int     @default(autoincrement()) @id
+  id          String @id @default(cuid())
   title       String
   isComplete  Boolean @default(false)
   
   task        Task?   @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  taskId      Int?
+  taskId      String?
 }
 
