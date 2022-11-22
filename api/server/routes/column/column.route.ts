@@ -31,13 +31,13 @@ router.post(
   },
 )
 
-const updateFields = ['id', 'name', 'column']
 router.put(
-  '/column',
-  body(updateFields).exists(validationOptions),
+  '/column/:id',
+  body('column').exists(validationOptions),
   validationSchema,
   async (request: Request, response: Response) => {
-    const {id, name, column} = request.body
+    const id = request.params.id
+    const {column} = request.body
 
     try {
       const updatedColumn = await columnModel.updateColumn(id, column)
@@ -49,24 +49,19 @@ router.put(
   },
 )
 
-router.delete(
-  '/column',
-  body('id').exists(validationOptions),
-  validationSchema,
-  async (request: Request, response: Response) => {
-    const {id} = request.body
+router.delete('/column/:id', async (request: Request, response: Response) => {
+  const id = request.params.id
 
-    if (!id)
-      return response
-        .status(500)
-        .json({message: 'id is required to delete column'})
+  if (!id)
+    return response
+      .status(500)
+      .json({message: 'id is required to delete column'})
 
-    try {
-      const column = await columnModel.removeColumn(id)
-      response.status(200).json(column)
-    } catch (error) {
-      console.log(error)
-      response.status(500).json({message: 'could not delete column', error})
-    }
-  },
-)
+  try {
+    const column = await columnModel.removeColumn(id)
+    response.status(200).json(column)
+  } catch (error) {
+    console.log(error)
+    response.status(500).json({message: 'could not delete column', error})
+  }
+})

@@ -45,11 +45,12 @@ router.post(
 )
 
 router.put(
-  '/board',
-  body(['id', 'board']).exists(validationOptions),
+  '/board/:id',
+  body(['board']).exists(validationOptions),
   validationSchema,
   async (request: Request, response: Response) => {
-    const {id, board} = request.body
+    const id = request.params.id
+    const {board} = request.body
 
     try {
       const updatedBoard = await boardModel.updateBoard(id, board)
@@ -60,8 +61,8 @@ router.put(
   },
 )
 
-router.delete('/board', async (request: Request, response: Response) => {
-  const {id} = request.body
+router.delete('/board/:id', async (request: Request, response: Response) => {
+  const id = request.params.id
   if (!id)
     response.status(404).json({message: 'no boardId found in request body'})
 
