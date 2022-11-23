@@ -11,9 +11,7 @@ const MyToggle: React.FC = () => {
     <Switch
       checked={context?.darkmode}
       onChange={context?.setDarkmode}
-      className={`${
-        context?.darkmode ? 'bg-blue-600' : 'bg-gray-200'
-      } relative inline-flex h-6 w-11 items-center rounded-full`}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full bg-purple-primary`}
     >
       <span className="sr-only">Enable notifications</span>
       <span
@@ -26,7 +24,7 @@ const MyToggle: React.FC = () => {
 }
 const ThemePicker = () => {
   return (
-    <div>
+    <div className="flex w-36 justify-between bg-gray-darkest py-1 px-3">
       <button onClick={() => alert('changed to dark')}>
         <img src={darkTheme} alt="" />
       </button>
