@@ -1,6 +1,6 @@
 import {withAuthenticationRequired} from '@auth0/auth0-react'
 import React, {ComponentType} from 'react'
-import {PageLoader} from './PageLoader'
+import {PageLoader} from '../components/PageLoader'
 
 interface ProtectedRouteProps {
   component: ComponentType
@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({component}) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (
-      <div className="page-layout">
+      <div className="">
         <PageLoader />
       </div>
     ),
