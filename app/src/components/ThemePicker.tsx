@@ -1,16 +1,23 @@
 import React, {useContext} from 'react'
-import darkTheme from '../../assets/icon-dark-theme.svg'
-import lightTheme from '../../assets/icon-light-theme.svg'
+import darkTheme from '../assets/icon-dark-theme.svg'
+import lightTheme from '../assets/icon-light-theme.svg'
 import {Switch} from '@headlessui/react'
 
 import {DarkmodeCtx} from './Layout'
 
 const MyToggle: React.FC = () => {
   const context = useContext(DarkmodeCtx)
+
+  const handleSwitch = () => {
+    context?.setDarkmode(s => {
+      localStorage.setItem('dark-theme', JSON.stringify(!s))
+      return !s
+    })
+  }
   return (
     <Switch
       checked={context?.darkmode}
-      onChange={context?.setDarkmode}
+      onChange={handleSwitch}
       className={`relative inline-flex h-6 w-11 items-center rounded-full bg-purple-primary`}
     >
       <span className="sr-only">Enable notifications</span>
@@ -25,13 +32,9 @@ const MyToggle: React.FC = () => {
 const ThemePicker = () => {
   return (
     <div className="flex w-36 justify-between bg-gray-darkest py-1 px-3">
-      <button onClick={() => alert('changed to dark')}>
-        <img src={darkTheme} alt="" />
-      </button>
+      <img src={lightTheme} alt="" />
       <MyToggle />
-      <button onClick={() => alert('changed to light')}>
-        <img src={lightTheme} alt="" />
-      </button>
+      <img src={darkTheme} alt="" />
     </div>
   )
 }
