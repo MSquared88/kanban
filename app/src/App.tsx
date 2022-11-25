@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {PageLoader} from './components/PageLoader'
 import {ProtectedRoute} from './pages/ProtectedRoute'
 import {ProtectedPage} from './pages/ProtectedPage'
-import {Layout} from './components/layout/Layout'
+import {Layout} from './components/Layout'
 
 const NotFoundPage = () => <div>not found</div>
 
