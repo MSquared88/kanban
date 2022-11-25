@@ -1,5 +1,5 @@
 import React from 'react'
-import ThemePicker from './ThemePicker'
+import ThemePicker from '../ThemePicker'
 
 export const SideBar = () => {
   return (
