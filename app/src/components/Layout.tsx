@@ -1,6 +1,7 @@
 import React from 'react'
-
-import {SideBar} from './SideBar'
+import {useMediaQuery} from 'react-responsive'
+import DesktopView from './desktop/DesktopView'
+import MobileView from './mobile/MobileView'
 
 interface AppContextInterface {
   darkmode: boolean
@@ -15,14 +16,20 @@ export const Layout = ({
 }: {
   children: React.ReactElement | React.ReactElement[]
 }) => {
+  const isMobile = useMediaQuery({query: '(max-width: 375px)'})
+
   // True if preference is set to dark, false otherwise.
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  // if explicitly picked than choice stored in local storage
+  const prefersDark = localStorage.getItem('dark-theme')
+    ? JSON.parse(localStorage.getItem('dark-theme') || '')
+    : window.matchMedia('(prefers-color-scheme: dark)').matches
 
   const [darkmode, setDarkmode] = React.useState(prefersDark)
+
   return (
     <div className={`${darkmode && 'dark'}`}>
       <DarkmodeCtx.Provider value={{darkmode, setDarkmode}}>
-        <SideBar />
+        {isMobile ? <MobileView /> : <DesktopView />}
       </DarkmodeCtx.Provider>
       {children}
     </div>
