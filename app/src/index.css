@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* dark mode animation */
+@layer components {
+  * {
+    @apply transition-colors duration-300 ease-in-out;
+  }
+}

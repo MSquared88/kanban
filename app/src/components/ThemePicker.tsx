@@ -31,7 +31,7 @@ const MyToggle: React.FC = () => {
 }
 const ThemePicker = () => {
   return (
-    <div className="flex w-36 justify-between bg-gray-darkest py-1 px-3">
+    <div className="flex w-36 justify-between  py-1 px-3 dark:bg-gray-darkest">
       <img src={lightTheme} alt="" />
       <MyToggle />
       <img src={darkTheme} alt="" />
