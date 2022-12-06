@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model Board {
-  ownerId   String
+  userId    String
   id        String @id @default(cuid())
   name      String
   columns   Column[]
@@ -24,8 +24,6 @@ model Column {
   board     Board?   @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   tasks     Task[]
-
-  
 }
 
 

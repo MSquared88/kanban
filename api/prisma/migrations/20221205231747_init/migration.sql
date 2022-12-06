@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Board" (
-    "ownerId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
