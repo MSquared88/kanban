@@ -11,22 +11,18 @@ import {body} from 'express-validator'
 
 export const router: Router = express.Router()
 
-router.get(
-  '/board',
-  body('ownerId').exists(validationOptions),
-  validationSchema,
-  async (request: Request, response: Response) => {
-    const ownerId: Board['ownerId'] = request.body.ownerId
+router.get('/board', async (request: Request, response: Response) => {
+  // @ts-ignore
+  const userId = request.auth?.sub
 
-    try {
-      const boards: Board[] = await boardModel.getBoards(ownerId)
+  try {
+    const boards: Board[] = await boardModel.getBoards(userId)
 
-      response.status(200).json(boards)
-    } catch (error) {
-      response.status(500).json({message: 'could not get boards', error})
-    }
-  },
-)
+    response.status(200).json(boards)
+  } catch (error) {
+    response.status(500).json({message: 'could not get boards', error})
+  }
+})
 
 router.post(
   '/board',
