@@ -4,27 +4,23 @@ import {PrismaClient} from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function getBoards(ownerId: Board['ownerId']) {
+export async function getBoards(userId: Board['userId']) {
   return prisma.board.findMany({
     where: {
-      ownerId,
-    },
-    //includes joined tables
-    include: {
-      columns: {include: {tasks: {include: {subtasks: true}}}},
+      userId,
     },
   })
 }
 
 export async function addBoard(
-  ownerId: Board['ownerId'],
+  userId: Board['userId'],
   name: Board['name'],
   columns?: Column[],
 ) {
   if (columns) {
     return prisma.board.create({
       data: {
-        ownerId,
+        userId,
         name,
         columns: {create: [...columns]},
       },
@@ -36,7 +32,7 @@ export async function addBoard(
 
   return prisma.board.create({
     data: {
-      ownerId,
+      userId,
       name,
     },
     include: {
