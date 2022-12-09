@@ -1,4 +1,4 @@
-import {QueryClient} from 'react-query'
+import {QueryClient} from '@tanstack/react-query'
 const apiURL = import.meta.env.VITE_API_SERVER_URL
 
 const queryClient: QueryClient = new QueryClient({
@@ -9,10 +9,8 @@ const queryClient: QueryClient = new QueryClient({
   },
 })
 
-async function client(
-  endpoint: string,
-  {data, token, ...customConfig}: {data?: {}; token: string},
-): Promise<Response> {
+async function client(endpoint: string, data?: {}): Promise<Response> {
+  const token = window.localStorage.getItem('token') || ''
   const config: RequestInit = {
     method: data ? 'POST' : 'GET',
     body: data ? JSON.stringify(data) : undefined,
@@ -20,7 +18,6 @@ async function client(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    ...customConfig,
   }
   return window.fetch(`${apiURL}/${endpoint}`, config).then(async response => {
     if (response.status === 401) {
