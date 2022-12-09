@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
-import darkTheme from '../assets/icon-dark-theme.svg'
-import lightTheme from '../assets/icon-light-theme.svg'
+import IconDarkThemeIcon from '../assets/icon-dark-theme.svg'
+import IconLightTheme from '../assets/icon-light-theme.svg'
 import {Switch} from '@headlessui/react'
 
 import {DarkmodeCtx} from './Layout'
@@ -32,9 +32,9 @@ const MyToggle: React.FC = () => {
 const ThemePicker = () => {
   return (
     <div className="flex w-36 justify-between  py-1 px-3 dark:bg-gray-darkest">
-      <img src={lightTheme} alt="" />
+      <img src={IconLightTheme} alt="" />
       <MyToggle />
-      <img src={darkTheme} alt="" />
+      <img src={IconDarkThemeIcon} alt="" />
     </div>
   )
 }

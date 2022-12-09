@@ -1,7 +1,8 @@
+import {useAuth0} from '@auth0/auth0-react'
 import React from 'react'
 import {useMediaQuery} from 'react-responsive'
-import DesktopView from './desktop/DesktopView'
-import MobileView from './mobile/MobileView'
+import {Outlet} from 'react-router-dom'
+import TopBar from './TopBar'
 
 interface AppContextInterface {
   darkmode: boolean
@@ -11,11 +12,7 @@ interface AppContextInterface {
 // Provider in your app
 
 const DarkmodeCtx = React.createContext<AppContextInterface | null>(null)
-export const Layout = ({
-  children,
-}: {
-  children: React.ReactElement | React.ReactElement[]
-}) => {
+export const Layout = () => {
   const isMobile = useMediaQuery({query: '(max-width: 375px)'})
 
   // True if preference is set to dark, false otherwise.
@@ -25,14 +22,17 @@ export const Layout = ({
     : window.matchMedia('(prefers-color-scheme: dark)').matches
 
   const [darkmode, setDarkmode] = React.useState(prefersDark)
+  const {user} = useAuth0()
 
   return (
-    <div className={`${darkmode && 'dark'}`}>
-      <DarkmodeCtx.Provider value={{darkmode, setDarkmode}}>
-        {isMobile ? <MobileView /> : <DesktopView />}
-      </DarkmodeCtx.Provider>
-      {children}
-    </div>
+    <DarkmodeCtx.Provider value={{darkmode, setDarkmode}}>
+      <div className={`${darkmode && 'dark'}`}>
+        <div className=" h-screen w-full dark:bg-gray-darkest">
+          <TopBar />
+          <Outlet />
+        </div>
+      </div>
+    </DarkmodeCtx.Provider>
   )
 }
 

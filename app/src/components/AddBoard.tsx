@@ -95,7 +95,10 @@ export default function AddBoard() {
                               defaultValue={column.name}
                               onChange={e => changeHandler(column.id, e)}
                             />
-                            <button onClick={() => removeColumn(column.id)}>
+                            <button
+                              type="button"
+                              onClick={() => removeColumn(column.id)}
+                            >
                               X
                             </button>
                           </li>
@@ -103,7 +106,9 @@ export default function AddBoard() {
                       </ul>
                     </label>
 
-                    <button onClick={() => addColumn()}>add column</button>
+                    <button type="button" onClick={() => addColumn()}>
+                      add column
+                    </button>
 
                     <button type="submit">add board</button>
                   </Form>
