@@ -15,12 +15,12 @@ import AddBoard from '../AddBoard'
 import {client} from '../../utils/api'
 import {Board} from '../../types'
 import {useQuery, UseQueryResult} from '@tanstack/react-query'
-import {useBoards} from '../../utils/boards'
+import {useBoardsQuery} from '../../utils/hooks'
 
 export default function MenuPopover() {
   const [searchParams, setSearchParams] = useSearchParams()
   const {boardId} = useParams()
-  const boards = useBoards()
+  const boards = useBoardsQuery()
 
   const board: Board | undefined = boardId
     ? boards?.find(({id}) => id === boardId)
@@ -58,7 +58,7 @@ export default function MenuPopover() {
                       ? boards.map(board => (
                           <NavLink
                             key={board.id}
-                            to={`boards/${board.id}`}
+                            to={`board/${board.id}`}
                             className={({isActive}) =>
                               isActive ? 'bg-purple-primary' : undefined
                             }
