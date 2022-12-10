@@ -23,16 +23,29 @@ router.get('/board', async (request: Request, response: Response) => {
     response.status(500).json({message: 'could not get boards', error})
   }
 })
+router.get('/board/:boardId', async (request: Request, response: Response) => {
+  const params = request.params
+  try {
+    const board = await boardModel.getBoardById(params.boardId)
+
+    response.status(200).json(board)
+  } catch (error) {
+    console.log(error)
+    response.status(500).json({message: 'could not get board', error})
+  }
+})
 
 router.post(
   '/board',
-  body(['ownerId', 'name']).exists(validationOptions),
+  body(['name']).exists(validationOptions),
   validationSchema,
   async (request: Request, response: Response) => {
-    const {ownerId, name, columns} = request.body
+    const {name, columns} = request.body
+    // @ts-ignore
+    const userId = request.auth?.sub
 
     try {
-      const board = await boardModel.addBoard(ownerId, name, columns)
+      const board = await boardModel.addBoard(userId, name, columns)
       response.status(200).json(board)
     } catch (error) {
       response.status(500).json({message: 'could not create board', error})
