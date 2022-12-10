@@ -9,7 +9,7 @@ const queryClient: QueryClient = new QueryClient({
   },
 })
 
-async function client(endpoint: string, data?: {}): Promise<Response> {
+async function client(endpoint: string, data?: {}): Promise<any> {
   const token = window.localStorage.getItem('token') || ''
   const config: RequestInit = {
     method: data ? 'POST' : 'GET',
