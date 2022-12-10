@@ -1,4 +1,4 @@
-import type {Board, Column, Task, Subtask, PrismaPromise} from '@prisma/client'
+import type {Board, Column} from '@prisma/client'
 
 import {PrismaClient} from '@prisma/client'
 
@@ -9,6 +9,15 @@ export async function getBoards(userId: Board['userId']) {
     where: {
       userId,
     },
+  })
+}
+
+export async function getBoardById(boardId: any) {
+  return prisma.board.findUnique({
+    where: {
+      id: boardId,
+    },
+    include: {columns: {include: {tasks: {include: {subtasks: true}}}}},
   })
 }
 
