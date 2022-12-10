@@ -1,23 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import {Auth0ProviderWithConfig} from './utils/auth/auth0-provider-with-config'
 
+//react query
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
+
+//auth0
+import {Auth0ProviderWithConfig} from './utils/auth/auth0-provider-with-config'
 
 //routes
 import {Layout} from './components/Layout'
 import ProtectedRoute from './routes/ProtectedRoute'
+import Login from './routes/login'
 import Boards, {
   loader as boardsLoader,
   action as boardsAction,
 } from './routes/boards'
-import Login from './routes/login'
 import AddBoard from './components/AddBoard'
-import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
+import Board, {
+  loader as boardLoader,
+  action as boardAction,
+} from './routes/board'
 
-const queryClient = new QueryClient()
+const queryClient: QueryClient = new QueryClient()
 
 const NotFoundPage = () => <div>not found</div>
 const router = createBrowserRouter([
@@ -34,7 +41,12 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         children: [
-          {path: ':boardId', element: <h1>board id</h1>},
+          {
+            path: ':boardId',
+            element: <Board />,
+            loader: boardLoader(queryClient),
+            action: boardAction(queryClient),
+          },
           {path: 'add', element: <AddBoard />},
         ],
       },
