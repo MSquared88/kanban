@@ -50,7 +50,7 @@ export const action =
     return redirect(`/boards/${board.id}`)
   }
 
-export default function Boards() {
+export default function BoardRoot() {
   const [searchParams] = useSearchParams()
   const {data: boards} = useQuery(boardsQuery())
 

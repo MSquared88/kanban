@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       .catch(console.error)
   }, [isAuthenticated])
   return isAuthenticated ? (
-    <Link to="/boards">go to boards</Link>
+    <Link to="/board">go to boards</Link>
   ) : (
     <LoginButton />
   )

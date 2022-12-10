@@ -14,10 +14,10 @@ import {Auth0ProviderWithConfig} from './utils/auth/auth0-provider-with-config'
 import {Layout} from './components/Layout'
 import ProtectedRoute from './routes/ProtectedRoute'
 import Login from './routes/login'
-import Boards, {
+import BoardRoot, {
   loader as boardsLoader,
   action as boardsAction,
-} from './routes/boards'
+} from './routes/boardRoot'
 import AddBoard from './components/AddBoard'
 import Board, {
   loader as boardLoader,
@@ -32,12 +32,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/boards',
+        path: '/board',
         loader: boardsLoader(queryClient),
         action: boardsAction(queryClient),
         element: (
           <ProtectedRoute>
-            <Boards />
+            <BoardRoot />
           </ProtectedRoute>
         ),
         children: [
