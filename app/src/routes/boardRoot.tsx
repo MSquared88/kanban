@@ -38,16 +38,14 @@ export const action =
     if (typeof name !== 'string' || name.length === 0) {
       throw Error('form data invalid')
     }
-    if (typeof columnsData !== 'object') {
-      throw Error('form data invalid')
-    }
+
     const board: Board = await client('api/board', {
       name,
       columns: columnsData,
     })
 
     await queryClient.invalidateQueries(['boards'])
-    return redirect(`/boards/${board.id}`)
+    return redirect(`/board/${board.id}`)
   }
 
 export default function BoardRoot() {
