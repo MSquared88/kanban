@@ -5,7 +5,7 @@ import './index.css'
 //react query
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
-import {RouterProvider, createBrowserRouter} from 'react-router-dom'
+import {RouterProvider, createBrowserRouter, Navigate} from 'react-router-dom'
 
 //auth0
 import {Auth0ProviderWithConfig} from './utils/auth/auth0-provider-with-config'
@@ -23,11 +23,12 @@ import Board, {
   loader as boardLoader,
   action as boardAction,
 } from './routes/board'
+import {Root} from './routes/root'
 
 const queryClient: QueryClient = new QueryClient()
 
-const NotFoundPage = () => <div>not found</div>
 const router = createBrowserRouter([
+  {path: '/', element: <Root />},
   {
     element: <Layout />,
     children: [
@@ -47,7 +48,6 @@ const router = createBrowserRouter([
             loader: boardLoader(queryClient),
             action: boardAction(queryClient),
           },
-          {path: 'add', element: <AddBoard />},
         ],
       },
     ],
