@@ -1,6 +1,6 @@
 import {SvgProps} from '../types'
 
-const IconChevronUp: React.FunctionComponent<SvgProps> = ({
+const IconCheck: React.FunctionComponent<SvgProps> = ({
   width,
   height,
   fill,
@@ -21,4 +21,4 @@ const IconChevronUp: React.FunctionComponent<SvgProps> = ({
   </svg>
 )
 
-export default IconChevronUp
+export default IconCheck

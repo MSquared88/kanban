@@ -1,6 +1,6 @@
 import {SvgProps} from '../types'
 
-const IconLogoMobile: React.FunctionComponent<SvgProps> = ({
+const LogoMobile: React.FunctionComponent<SvgProps> = ({
   width,
   height,
   fill,
@@ -15,4 +15,4 @@ const IconLogoMobile: React.FunctionComponent<SvgProps> = ({
   </svg>
 )
 
-export default IconLogoMobile
+export default LogoMobile
