@@ -42,3 +42,10 @@ export type Subtask = {
   isComplete: boolean
   taskId: string | null
 }
+
+export interface SvgProps {
+  height: number
+  width: number
+  fill?: string
+  className?: string
+}
