@@ -9,7 +9,7 @@ import {
 import {useQuery, QueryClient} from '@tanstack/react-query'
 import {client} from '../utils/api'
 import {useAuth0} from '@auth0/auth0-react'
-import AddBoard from '../components/AddBoard'
+import AddBoard from '../components/nav/AddBoard'
 import {Board} from '../types'
 
 // ⬇️ define your query

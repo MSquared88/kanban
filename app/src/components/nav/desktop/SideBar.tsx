@@ -1,5 +1,5 @@
 import React from 'react'
-import {LogoutButton} from '../LogOutButton'
+import {LogoutButton} from '../../LogOutButton'
 import ThemePicker from '../ThemePicker'
 
 export const SideBar = () => {
