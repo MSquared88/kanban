@@ -6,9 +6,8 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-import {useQuery, QueryClient} from '@tanstack/react-query'
+import {QueryClient} from '@tanstack/react-query'
 import {client} from '../utils/api'
-import {useAuth0} from '@auth0/auth0-react'
 import AddBoard from '../components/nav/AddBoard'
 import {Board} from '../types'
 
@@ -59,7 +58,6 @@ export const action =
 
 export default function BoardRoot() {
   const [searchParams] = useSearchParams()
-  const {data: boards} = useQuery(boardsQuery())
 
   return (
     <div>
