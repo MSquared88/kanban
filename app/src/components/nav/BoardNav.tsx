@@ -19,34 +19,38 @@ const BoardNav: React.FunctionComponent<IAppProps> = ({boards, close}) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   return (
-    <div className="flex flex-col font-semibold">
+    <div className="scroll flex flex-col font-semibold">
       <p className="pl-6 pb-3 text-gray-medium">{`ALL BOARDS (${boards?.length})`}</p>
-      {boards
-        ? boards.map(board => (
-            <NavLink
-              key={board.id}
-              to={`board/${board.id}`}
-              className={({isActive}) =>
-                `flex h-12 w-60 flex-row items-center justify-start rounded-r-3xl ${
-                  isActive ? 'bg-purple-primary text-white' : 'text-gray-medium'
-                }`
-              }
-              onClick={close}
-            >
-              {({isActive}) => (
-                <div className="flex items-center justify-center pl-6 ">
-                  <BoardIcon
-                    width={16}
-                    height={16}
-                    fill={isActive ? 'white' : '#828FA3'}
-                  />
+      <div className="h-36  overflow-y-scroll">
+        {boards
+          ? boards.map(board => (
+              <NavLink
+                key={board.id}
+                to={`board/${board.id}`}
+                className={({isActive}) =>
+                  `flex h-12 w-60 flex-row items-center justify-start rounded-r-3xl ${
+                    isActive
+                      ? 'bg-purple-primary text-white'
+                      : 'text-gray-medium'
+                  }`
+                }
+                onClick={close}
+              >
+                {({isActive}) => (
+                  <div className="flex items-center justify-center pl-6 ">
+                    <BoardIcon
+                      width={16}
+                      height={16}
+                      fill={isActive ? 'white' : '#828FA3'}
+                    />
 
-                  <p className="pl-4">{board.name}</p>
-                </div>
-              )}
-            </NavLink>
-          ))
-        : null}
+                    <p className="pl-4">{board.name}</p>
+                  </div>
+                )}
+              </NavLink>
+            ))
+          : null}
+      </div>
       <button
         className="flex h-12 w-60 flex-row items-center justify-start pl-6"
         onClick={() => setSearchParams({add_board: 'true'})}
