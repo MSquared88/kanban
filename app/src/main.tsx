@@ -18,7 +18,7 @@ import BoardRoot, {
   loader as boardsLoader,
   action as boardsAction,
 } from './routes/boardRoot'
-import AddBoard from './components/AddBoard'
+import AddBoard from './components/nav/AddBoard'
 import Board, {
   loader as boardLoader,
   action as boardAction,

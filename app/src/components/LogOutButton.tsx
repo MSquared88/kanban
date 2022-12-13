@@ -10,7 +10,10 @@ export const LogoutButton: React.FC = () => {
   }
 
   return (
-    <button className="button__logout" onClick={handleLogout}>
+    <button
+      className="mt-6 rounded-lg bg-purple-primary px-4 py-2 font-semibold text-white hover:bg-purple-hover"
+      onClick={handleLogout}
+    >
       Log Out
     </button>
   )

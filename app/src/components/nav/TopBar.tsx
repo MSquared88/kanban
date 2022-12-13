@@ -3,7 +3,7 @@ import {useMediaQuery} from 'react-responsive'
 import MenuPopover from './mobile/MenuPopover'
 
 //icons
-import logoMobile from '../assets/logo-mobile.svg'
+import IconLogoMobile from '../../assets/logo-mobile'
 
 export default function TopBar() {
   const isMobile = useMediaQuery({query: '(max-width: 375px)'})
@@ -12,7 +12,7 @@ export default function TopBar() {
     <div className="flex h-16 flex-row dark:bg-gray-dark">
       {isMobile ? (
         <>
-          <img src={logoMobile} alt="logo" />
+          <IconLogoMobile width={30} height={30} />
           <MenuPopover />
         </>
       ) : (

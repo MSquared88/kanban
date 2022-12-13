@@ -2,7 +2,7 @@ import {useAuth0} from '@auth0/auth0-react'
 import React from 'react'
 import {useMediaQuery} from 'react-responsive'
 import {Outlet} from 'react-router-dom'
-import TopBar from './TopBar'
+import TopBar from './nav/TopBar'
 
 interface AppContextInterface {
   darkmode: boolean
