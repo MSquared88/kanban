@@ -36,7 +36,7 @@ export default function MenuPopover() {
             <Popover.Button
               className={`
                 ${open ? '' : 'text-opacity-90'}
-                 group inline-flex items-center rounded-md  text-base font-medium text-white  hover:text-opacity-100 focus:outline-none  `}
+                 group inline-flex grow items-center rounded-md  text-base font-medium text-white  hover:text-opacity-100 focus:outline-none  `}
             >
               <p className="mx-2 h-full text-center align-text-top text-2xl text-black dark:text-white">
                 {board?.name ?? 'Select Board'}
