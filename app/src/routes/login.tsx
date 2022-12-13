@@ -5,20 +5,23 @@ import * as React from 'react'
 
 const Login: React.FC = () => {
   const {isAuthenticated, getAccessTokenSilently} = useAuth0()
+
+  // set token in local storage
   React.useEffect(() => {
     // declare the data fetching function
     const setToken = async () => {
+      // if authenticated, get token and set in local storage
       if (isAuthenticated) {
         const token = await getAccessTokenSilently()
         window.localStorage.setItem('token', token)
       }
     }
 
-    // call the function
-    setToken()
-      // make sure to catch any error
-      .catch(console.error)
+    // call the data fetching function
+    setToken().catch(console.error)
   }, [isAuthenticated])
+
+  // if authenticated, redirect to board page
   return isAuthenticated ? (
     <Link to="/board">go to boards</Link>
   ) : (
@@ -29,8 +32,6 @@ const Login: React.FC = () => {
 export default Login
 
 const LoginButton: React.FC = () => {
-  const location = useLocation()
-  let from = location.state?.from?.pathname || '/boards'
   const {loginWithPopup} = useAuth0()
   const handleLogin = async () => {
     await loginWithPopup({
