@@ -4,29 +4,35 @@ import MenuPopover from './mobile/MenuPopover'
 
 //icons
 import IconLogoMobile from '../../assets/logo-mobile'
-import {KebabMenu} from '../KebabMenu'
+import KebabMenu from '../KebabMenu'
 import IconAddTaskMobile from '../../assets/icon-add-task-mobile'
-import Button from '../Button'
+import {useBoardDetail} from '../../utils/hooks/hooks.board'
+import {useParams, useSearchParams} from 'react-router-dom'
+import DestroyBoardModal from './DestroyBoardModal'
+import AddBoard from './AddBoard'
 
 export default function TopBar() {
   const isMobile = useMediaQuery({query: '(max-width: 375px)'})
+  const params = useParams()
+  const [searchParams] = useSearchParams()
 
   return (
     <div className="flex h-16 flex-row items-center justify-center dark:bg-gray-dark">
       {isMobile ? (
         <div className="flex w-full flex-row content-between items-center justify-between">
-          <div className="flex flex-row items-center justify-start">
+          <div className="mr-1 flex flex-row items-center justify-start">
             <IconLogoMobile width={30} height={30} />
             <MenuPopover />
           </div>
-          <div className=" flex flex-row items-center justify-center gap-4">
-            <Button
-              className="flex h-8 w-12 items-center justify-center rounded-full bg-purple-primary"
-              onClick={() => ''}
-              text={<IconAddTaskMobile height={25} width={25} />}
-            />
-            <KebabMenu />
-          </div>
+          {params.boardId && (
+            <div className=" flex flex-row items-center justify-center gap-2">
+              <button className="flex h-8 w-12 items-center justify-center rounded-full bg-purple-primary">
+                <IconAddTaskMobile height={25} width={25} />
+              </button>
+              <KebabMenu />
+              {searchParams.get('destroy_board') && <DestroyBoardModal />}
+            </div>
+          )}
         </div>
       ) : (
         <>

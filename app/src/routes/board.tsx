@@ -5,25 +5,12 @@ import {
   LoaderFunctionArgs,
   useParams,
 } from 'react-router-dom'
-import {client} from '../utils/api'
-
-const boardDetailQuery = (id: any) => ({
-  queryKey: ['boards', 'detail', id],
-  queryFn: async () => {
-    const board = await client(`api/board/${id}`)
-    if (!board) {
-      throw new Response('', {
-        status: 404,
-        statusText: 'Not Found',
-      })
-    }
-    return board
-  },
-})
+import {useBoardDetail, boardDetailQuery} from '../utils/hooks/hooks.board'
 
 export const loader =
   (queryClient: QueryClient) =>
   async ({params}: LoaderFunctionArgs) => {
+    if (!params) return
     const query = boardDetailQuery(params?.boardId)
     if (!queryClient.getQueryData(boardDetailQuery(params?.boardId).queryKey)) {
       await queryClient.fetchQuery(boardDetailQuery(params?.boardId))
@@ -34,6 +21,7 @@ export const loader =
 export const action =
   (queryClient: QueryClient) =>
   async ({request, params}: ActionFunctionArgs) => {
+    return
     // let formData = await request.formData()
     // const contact = await updateContact(params.contactId, {
     //   favorite: formData.get('favorite') === 'true',
@@ -44,8 +32,8 @@ export const action =
 
 const Board: React.FunctionComponent = () => {
   const params = useParams()
-  const {data} = useQuery(boardDetailQuery(params?.boardId))
-  console.log('🚀 ~ file: board.tsx:50 ~ board', data)
+  // const board = useBoardDetail(params.boardId as string)
+  // console.log('🚀 ~ file: board.tsx:50 ~ board', board)
   return (
     <div>
       <h1>board</h1>

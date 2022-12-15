@@ -18,12 +18,12 @@ import BoardRoot, {
   loader as boardsLoader,
   action as boardsAction,
 } from './routes/boardRoot'
-import AddBoard from './components/nav/AddBoard'
 import Board, {
   loader as boardLoader,
   action as boardAction,
 } from './routes/board'
 import {Root} from './routes/root'
+import {action as destroyAction} from './routes/destroyBoard'
 
 const queryClient: QueryClient = new QueryClient()
 
@@ -48,6 +48,10 @@ const router = createBrowserRouter([
             loader: boardLoader(queryClient),
             action: boardAction(queryClient),
           },
+          {
+            path: ':boardId/destroy',
+            action: destroyAction(queryClient),
+          },
         ],
       },
     ],
@@ -64,5 +68,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <ReactQueryDevtools position="bottom-right" />
       </Auth0ProviderWithConfig>
     </QueryClientProvider>
+    ,
   </React.StrictMode>,
 )
