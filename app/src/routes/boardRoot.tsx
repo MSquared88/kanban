@@ -7,14 +7,14 @@ import {
 } from 'react-router-dom'
 
 import {QueryClient} from '@tanstack/react-query'
-import {client} from '../utils/api'
 import AddBoard from '../components/nav/AddBoard'
-import {Board} from '../types'
+import {Board, Column} from '../types'
+import {addBoard, getBoards} from '../utils/api/api.board'
 
 // ⬇️ define your query
 const boardsQuery = () => ({
   queryKey: ['boards'],
-  queryFn: async () => client('api/board'),
+  queryFn: async () => getBoards(),
 })
 
 export const loader =
@@ -23,7 +23,7 @@ export const loader =
     if (!queryClient.getQueryData(boardsQuery().queryKey)) {
       await queryClient.fetchQuery(boardsQuery())
     }
-    return
+    return request
   }
 
 export const action =
@@ -31,38 +31,28 @@ export const action =
   async ({request}: LoaderFunctionArgs) => {
     //get form data from request
     const formData = await request.formData()
-
-    //get name and columns from form data
-    const name = formData.get('name')
-    const columnsData = formData.getAll('columns').map(column => {
-      return {name: column}
-    })
-
-    //validate form data
-    if (typeof name !== 'string' || name.length === 0) {
-      throw Error('form data invalid')
+    //create new board from form data
+    const newBoard: Board = {
+      name: formData.get('name') as Board['name'],
+      columns: formData.getAll('columns').map(column => ({
+        name: column as Column['name'],
+      })),
     }
 
-    // create new board with form data
-    const board: Board = await client('api/board', {
-      name,
-      columns: columnsData,
-    })
-
-    //invalidate boards query so that the new board will show up in the nav
-    await queryClient.invalidateQueries(['boards'])
-
-    //redirect to the new board page with the new board id
+    //post new board to apiS
+    const board = await addBoard(newBoard)
+    //invalidate boards query
+    await queryClient.invalidateQueries(boardsQuery().queryKey)
+    //redirect to new board
     return redirect(`/board/${board.id}`)
   }
-
 export default function BoardRoot() {
   const [searchParams] = useSearchParams()
 
   return (
-    <div>
+    <>
       <Outlet />
       {searchParams.get('add_board') && <AddBoard />}
-    </div>
+    </>
   )
 }

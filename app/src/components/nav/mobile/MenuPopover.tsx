@@ -17,7 +17,7 @@ import IconChevronDown from '../../../assets/icon-chevron-down'
 import IconChevronUp from '../../../assets/icon-chevron-up'
 
 //hooks
-import {useBoardsQuery} from '../../../utils/hooks'
+import {useBoardsQuery} from '../../../utils/hooks/hooks.board'
 
 export default function MenuPopover() {
   const {boardId} = useParams()
@@ -60,7 +60,7 @@ export default function MenuPopover() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute left-1/2 z-10  mt-10  -translate-x-1/2 transform ">
+              <Popover.Panel className="absolute left-1/2 z-10  mt-10">
                 <div className="  h-96  overflow-hidden bg-white py-3 pr-3 shadow-lg  ring-1  ring-black  ring-opacity-5 dark:bg-gray-dark dark:text-white">
                   <div className="relative flex flex-col items-center justify-center">
                     <BoardNav boards={boards} close={close} />

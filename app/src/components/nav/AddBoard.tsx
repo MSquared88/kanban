@@ -4,6 +4,7 @@ import {v4 as uuid} from 'uuid'
 import {Dialog, Transition} from '@headlessui/react'
 import {Fragment, useState} from 'react'
 import {Form, useNavigate} from 'react-router-dom'
+import Modal from '../Modal'
 
 export type ColumnInput = {
   id: string
@@ -39,85 +40,47 @@ export default function AddBoard() {
   }
 
   return (
-    <>
-      <Transition appear show={true} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={onClose}
-          initialFocus={buttonRef}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
+    <Modal onClose={onClose}>
+      <Form method="post" className="flex flex-col">
+        <label>
+          <span>Board Name</span>
+          <input
+            placeholder="e.g. Web Design"
+            aria-label="board name"
+            type="text"
+            name="name"
+            required
+          />
+        </label>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Form method="post" className="flex flex-col">
-                    <label>
-                      <span>Board Name</span>
-                      <input
-                        placeholder="e.g. Web Design"
-                        aria-label="board name"
-                        type="text"
-                        name="name"
-                      />
-                    </label>
+        <label>
+          <span>Board Columns</span>
+          <ul className="flex flex-col">
+            {columns.map(column => (
+              <li className="flex flex-row" key={column.id}>
+                <input
+                  placeholder="column name"
+                  aria-label="column"
+                  type="text"
+                  name="columns"
+                  required
+                  defaultValue={column.name}
+                  onChange={e => changeHandler(column.id, e)}
+                />
+                <button type="button" onClick={() => removeColumn(column.id)}>
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </label>
 
-                    <label>
-                      <span>Board Columns</span>
-                      <ul className="flex flex-col">
-                        {columns.map(column => (
-                          <li className="flex flex-row" key={column.id}>
-                            <input
-                              placeholder="column name"
-                              aria-label="column"
-                              type="text"
-                              name="columns"
-                              defaultValue={column.name}
-                              onChange={e => changeHandler(column.id, e)}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => removeColumn(column.id)}
-                            >
-                              X
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </label>
+        <button type="button" onClick={() => addColumn()}>
+          add column
+        </button>
 
-                    <button type="button" onClick={() => addColumn()}>
-                      add column
-                    </button>
-
-                    <button type="submit">add board</button>
-                  </Form>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-    </>
+        <button type="submit">add board</button>
+      </Form>
+    </Modal>
   )
 }

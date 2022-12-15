@@ -1,14 +1,20 @@
 import * as React from 'react'
 import {Menu, Transition} from '@headlessui/react'
 import IconVerticalEllipsis from '../assets/icon-vertical-ellipsis'
+import {useParams, Link, useSearchParams} from 'react-router-dom'
+import {useBoardDetail} from '../utils/hooks/hooks.board'
+import DestroyBoardModal from './nav/DestroyBoardModal'
+import {Board} from '../types'
 
-export interface IAppProps {}
+export default function KebabMenu() {
+  const params = useParams()
+  const [searhParams, setSearchParams] = useSearchParams()
+  const {data: board, isSuccess} = useBoardDetail(params.boardId as string)
 
-export function KebabMenu(props: IAppProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="inline-flex w-full justify-center rounded-md  py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-        <IconVerticalEllipsis width={25} height={25} />
+      <Menu.Button className="mr-4 inline-flex  justify-center  rounded-md py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <IconVerticalEllipsis width={15} height={20} />
       </Menu.Button>
       <Transition
         as={React.Fragment}
@@ -19,8 +25,18 @@ export function KebabMenu(props: IAppProps) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <Menu.Item>edit</Menu.Item>
+        <Menu.Items className="absolute right-0 mt-2 mr-4 flex w-52 origin-top-right flex-col items-start rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-darkest">
+          <Menu.Item>
+            <button className="w-full p-2 text-left text-gray-medium">{`Edit Board`}</button>
+          </Menu.Item>
+          <Menu.Item>
+            <button
+              className="w-full p-2 text-left text-gray-medium"
+              onClick={() => setSearchParams({destroy_board: 'true'})}
+            >
+              Delete Board
+            </button>
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>

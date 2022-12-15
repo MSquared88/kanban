@@ -28,7 +28,7 @@ const BoardNav: React.FunctionComponent<IAppProps> = ({boards, close}) => {
                 key={board.id}
                 to={`board/${board.id}`}
                 className={({isActive}) =>
-                  `flex h-12 w-60 flex-row items-center justify-start rounded-r-3xl ${
+                  `flex h-12 w-60 flex-row items-center justify-start rounded-r-3xl hover:bg-white hover:text-purple-primary ${
                     isActive
                       ? 'bg-purple-primary text-white'
                       : 'text-gray-medium'
