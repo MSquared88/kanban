@@ -31,7 +31,7 @@ export default function KebabMenu() {
           </Menu.Item>
           <Menu.Item>
             <button
-              className="w-full p-2 text-left text-gray-medium"
+              className="w-full p-2 text-left text-red-primary"
               onClick={() => setSearchParams({destroy_board: 'true'})}
             >
               Delete Board
