@@ -38,7 +38,7 @@ export default function Modal({onClose, children, panelClassName}: ModalProps) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full max-w-md transform overflow-hidden p-6 text-left align-middle shadow-xl transition-all ${panelClassName}`}
+                  className={`flex w-full max-w-md transform flex-col gap-4 overflow-hidden rounded-md  bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-dark ${panelClassName}`}
                 >
                   {children}
                 </Dialog.Panel>

@@ -11,12 +11,9 @@ export default function DestroyBoardModal() {
     navigate(-1)
   }
   return (
-    <Modal
-      onClose={onClose}
-      panelClassName="bg-gray-dark rounded-md flex flex-col gap-4"
-    >
+    <Modal onClose={onClose} panelClassName="">
       {' '}
-      <div className="mt-2 flex flex-col gap-4 rounded-md bg-gray-dark">
+      <div className="mt-2 flex flex-col gap-4 rounded-md ">
         <h1 className="text-lg font-semibold text-red-primary">
           Delete this board
         </h1>
@@ -36,7 +33,7 @@ export default function DestroyBoardModal() {
         </Form>
         <button
           type="button"
-          className="text-bl inline-flex justify-center rounded-full border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-purple-primary hover:bg-purple-hover focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
+          className="text-bl inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-purple-primary hover:bg-purple-hover focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"
           onClick={() => {
             navigate(-1)
           }}

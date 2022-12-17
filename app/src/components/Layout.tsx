@@ -22,15 +22,19 @@ export const Layout = () => {
     : window.matchMedia('(prefers-color-scheme: dark)').matches
 
   const [darkmode, setDarkmode] = React.useState(prefersDark)
-  const {user} = useAuth0()
+  React.useEffect(() => {
+    if (darkmode) {
+      document.body.classList.add('dark')
+    } else {
+      document.body.classList.remove('dark')
+    }
+  }, [darkmode])
 
   return (
     <DarkmodeCtx.Provider value={{darkmode, setDarkmode}}>
-      <div className={`${darkmode && 'dark'}`}>
-        <div className=" h-screen w-full dark:bg-gray-darkest">
-          <TopBar />
-          <Outlet />
-        </div>
+      <div className=" flex h-screen w-full flex-col dark:bg-gray-darkest">
+        <TopBar />
+        <Outlet />
       </div>
     </DarkmodeCtx.Provider>
   )
