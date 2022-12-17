@@ -68,6 +68,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <ReactQueryDevtools position="bottom-right" />
       </Auth0ProviderWithConfig>
     </QueryClientProvider>
-    ,
   </React.StrictMode>,
 )
