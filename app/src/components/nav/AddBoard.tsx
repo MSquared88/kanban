@@ -1,10 +1,13 @@
 import * as React from 'react'
 
 import {v4 as uuid} from 'uuid'
-import {Dialog, Transition} from '@headlessui/react'
-import {Fragment, useState} from 'react'
-import {Form, useNavigate} from 'react-router-dom'
+import {Form, useActionData, useNavigate} from 'react-router-dom'
 import Modal from '../Modal'
+import FormInput from '../form/FormInput'
+import InputLabel from '../form/InputLabel'
+import IconCross from '../../assets/icon-cross'
+
+import {z} from 'zod'
 
 export type ColumnInput = {
   id: string
@@ -13,7 +16,8 @@ export type ColumnInput = {
 
 export default function AddBoard() {
   let navigate = useNavigate()
-  let buttonRef = React.useRef<HTMLButtonElement>(null)
+  const errors = useActionData()
+  useActionData()
   const [columns, setColumns] = React.useState<ColumnInput[]>([])
 
   function addColumn() {
@@ -40,46 +44,65 @@ export default function AddBoard() {
   }
 
   return (
-    <Modal onClose={onClose}>
-      <Form method="post" className="flex flex-col">
-        <label>
-          <span>Board Name</span>
-          <input
+    <Modal onClose={onClose} className="bg-white dark:bg-gray-dark">
+      <h1 className=" text-xl font-bold dark:text-white">Add New Board</h1>
+      <Form method="post" className="text-gra flex flex-col ">
+        <InputLabel className="mb-6" label="Board Name">
+          <FormInput
             placeholder="e.g. Web Design"
             aria-label="board name"
             type="text"
             name="name"
-            required
+            className="w-full text-gray-medium dark:text-white"
+            error={errors}
           />
-        </label>
+        </InputLabel>
 
-        <label>
-          <span>Board Columns</span>
-          <ul className="flex flex-col">
+        <InputLabel label="Board Columns">
+          <ul className="flex max-h-60 flex-col gap-4 overflow-y-scroll ">
             {columns.map(column => (
-              <li className="flex flex-row" key={column.id}>
-                <input
+              <li className="flex flex-row gap-4" key={column.id}>
+                <FormInput
                   placeholder="column name"
-                  aria-label="column"
+                  ariaLabel="column"
                   type="text"
                   name="columns"
-                  required
+                  className="w-full text-gray-medium dark:text-white"
                   defaultValue={column.name}
                   onChange={e => changeHandler(column.id, e)}
+                  error={errors}
                 />
-                <button type="button" onClick={() => removeColumn(column.id)}>
-                  X
+                <button
+                  type="button"
+                  onClick={() => removeColumn(column.id)}
+                  className="mr-4"
+                >
+                  <IconCross
+                    width={15}
+                    height={15}
+                    className="fill-gray-medium focus:fill-red-primary"
+                  />
                 </button>
               </li>
             ))}
           </ul>
-        </label>
+        </InputLabel>
+        <div className="mt-8 flex w-full flex-col items-center justify-center gap-2">
+          <button
+            className="h-10 w-full rounded-full border-2  border-purple-primary bg-white text-purple-primary"
+            type="button"
+            onClick={() => addColumn()}
+          >
+            + Add New Column
+          </button>
 
-        <button type="button" onClick={() => addColumn()}>
-          add column
-        </button>
-
-        <button type="submit">add board</button>
+          <button
+            type="submit"
+            className="h-10 w-full rounded-full bg-purple-primary text-white hover:bg-purple-hover"
+          >
+            Create New Board
+          </button>
+        </div>
       </Form>
     </Modal>
   )
