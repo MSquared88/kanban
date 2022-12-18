@@ -30,8 +30,12 @@ const MyToggle: React.FC = () => {
   )
 }
 const ThemePicker = () => {
+  const context = useContext(DarkmodeCtx)
+
   return (
-    <div className="mt-4 flex h-12 w-56 flex-row items-center justify-between rounded-md  px-6  py-1 dark:bg-gray-darkest">
+    <div
+      className={`mt-4 flex h-12 w-56 flex-row items-center justify-between rounded-md  px-6  py-1 dark:bg-gray-darkest`}
+    >
       <IconLightTheme
         width={20}
         height={20}
