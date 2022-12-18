@@ -6,10 +6,10 @@ import {Form, useNavigate} from 'react-router-dom'
 export type ModalProps = {
   onClose: () => void
   children: React.ReactNode
-  panelClassName?: string
+  className?: string
 }
 
-export default function Modal({onClose, children, panelClassName}: ModalProps) {
+export default function Modal({onClose, children, className}: ModalProps) {
   return (
     <>
       <Transition appear show={true} as={Fragment}>
@@ -38,7 +38,7 @@ export default function Modal({onClose, children, panelClassName}: ModalProps) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`flex w-full max-w-md transform flex-col gap-4 overflow-hidden rounded-md  bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-dark ${panelClassName}`}
+                  className={`flex w-full max-w-md transform flex-col gap-4 overflow-hidden rounded-md  bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-dark ${className}`}
                 >
                   {children}
                 </Dialog.Panel>

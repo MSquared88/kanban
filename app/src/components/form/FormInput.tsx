@@ -1,12 +1,13 @@
 import React from 'react'
 
 import classname from 'classnames'
+import {ZodError, ZodErrorMap} from 'zod/lib/ZodError'
 
 interface FormInputProps {
   name: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   type?: string
-  error?: string
+  error?: any
   placeholder?: string
   required?: boolean
   defaultValue?: string
@@ -33,7 +34,7 @@ const FormInput: React.FC<FormInputProps> = ({
         onChange={onChange}
         className={classname([
           'rounded-md border-[1px] border-gray-medium p-2 font-semibold text-black focus:border-purple-primary focus:outline-none focus:ring-2 dark:bg-gray-dark',
-          error ? 'invalid' : '',
+          error?.fieldErrors[name] ? 'invalid border-red-primary' : '',
           className,
         ])}
         placeholder={placeholder}
@@ -41,7 +42,11 @@ const FormInput: React.FC<FormInputProps> = ({
         defaultValue={defaultValue}
         aria-label={ariaLabel}
       />
-      {error && <div className="error">{error}</div>}
+      {error?.fieldErrors[name] && (
+        <span className="error text-sm text-red-primary">
+          {error?.fieldErrors[name]}
+        </span>
+      )}
     </>
   )
 }
