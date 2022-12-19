@@ -9,7 +9,7 @@ import IconAddTaskMobile from '../../assets/icon-add-task-mobile'
 import {useBoardDetail} from '../../utils/hooks/hooks.board'
 import {useParams, useSearchParams} from 'react-router-dom'
 import DestroyBoardModal from './DestroyBoardModal'
-import AddBoard from './AddBoard'
+import BoardForm from './BoardForm'
 
 export default function TopBar() {
   const isMobile = useMediaQuery({query: '(max-width: 375px)'})
@@ -31,6 +31,7 @@ export default function TopBar() {
               </button>
               <KebabMenu />
               {searchParams.get('destroy_board') && <DestroyBoardModal />}
+              {/* {searchParams.get('edit_board') && <DestroyBoardModal />} */}
             </div>
           )}
         </div>

@@ -11,7 +11,7 @@ export default function DestroyBoardModal() {
     navigate(-1)
   }
   return (
-    <Modal onClose={onClose} panelClassName="">
+    <Modal onClose={onClose} className="">
       {' '}
       <div className="mt-2 flex flex-col gap-4 rounded-md ">
         <h1 className="text-lg font-semibold text-red-primary">

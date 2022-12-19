@@ -7,16 +7,15 @@ import FormInput from '../form/FormInput'
 import InputLabel from '../form/InputLabel'
 import IconCross from '../../assets/icon-cross'
 
-import {z} from 'zod'
-
 export type ColumnInput = {
   id: string
   name: string
 }
 
-export default function AddBoard() {
+export default function BoardForm() {
   let navigate = useNavigate()
   const errors = useActionData()
+
   useActionData()
   const [columns, setColumns] = React.useState<ColumnInput[]>([])
 
