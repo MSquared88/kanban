@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import {QueryClient} from '@tanstack/react-query'
-import BoardForm from '../components/nav/BoardForm'
+import AddBoardForm from '../components/form/AddBoardForm'
 import {Board, Column} from '../types'
 import {addBoard, getBoards} from '../utils/api/api.board'
 
@@ -79,7 +79,7 @@ export default function BoardRoot() {
   return (
     <>
       <Outlet />
-      {searchParams.get('add_board') && <BoardForm />}
+      {searchParams.get('add_board') && <AddBoardForm type="add" />}
     </>
   )
 }
