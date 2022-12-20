@@ -23,7 +23,7 @@ export default function DestroyBoardModal() {
         </p>
       </div>
       <div className="mt-4 flex w-full flex-col justify-evenly gap-4">
-        <Form method="post" action={`board/${board?.id}/destroy`}>
+        <Form method="post" action="destroy">
           <button
             type="submit"
             className="text-bl inline-flex w-full justify-center rounded-full border border-transparent bg-red-primary px-4 py-2 text-sm font-medium text-white hover:bg-red-hover  focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2"

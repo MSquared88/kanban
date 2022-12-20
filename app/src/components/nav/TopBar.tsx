@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {useMediaQuery} from 'react-responsive'
 import MenuPopover from './mobile/MenuPopover'
 
@@ -6,15 +5,11 @@ import MenuPopover from './mobile/MenuPopover'
 import IconLogoMobile from '../../assets/logo-mobile'
 import KebabMenu from '../KebabMenu'
 import IconAddTaskMobile from '../../assets/icon-add-task-mobile'
-import {useBoardDetail} from '../../utils/hooks/hooks.board'
-import {useParams, useSearchParams} from 'react-router-dom'
-import DestroyBoardModal from './DestroyBoardModal'
-import BoardForm from './BoardForm'
+import {useParams} from 'react-router-dom'
 
 export default function TopBar() {
   const isMobile = useMediaQuery({query: '(max-width: 375px)'})
   const params = useParams()
-  const [searchParams] = useSearchParams()
 
   return (
     <div className="flex h-16 flex-row items-center justify-center dark:bg-gray-dark">
@@ -30,8 +25,6 @@ export default function TopBar() {
                 <IconAddTaskMobile height={25} width={25} />
               </button>
               <KebabMenu />
-              {searchParams.get('destroy_board') && <DestroyBoardModal />}
-              {/* {searchParams.get('edit_board') && <DestroyBoardModal />} */}
             </div>
           )}
         </div>
