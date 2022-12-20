@@ -12,10 +12,9 @@ export type ColumnInput = {
   name: string
 }
 
-export default function BoardForm() {
+export default function AddBoardForm() {
   let navigate = useNavigate()
   const errors = useActionData()
-
   useActionData()
   const [columns, setColumns] = React.useState<ColumnInput[]>([])
 
