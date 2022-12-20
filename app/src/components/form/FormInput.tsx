@@ -4,6 +4,7 @@ import classname from 'classnames'
 import {ZodError, ZodErrorMap} from 'zod/lib/ZodError'
 
 interface FormInputProps {
+  id?: string
   name: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   type?: string
@@ -25,10 +26,12 @@ const FormInput: React.FC<FormInputProps> = ({
   defaultValue,
   ariaLabel,
   className,
+  id,
 }) => {
   return (
     <>
       <input
+        id={id}
         type={type}
         name={name}
         onChange={onChange}

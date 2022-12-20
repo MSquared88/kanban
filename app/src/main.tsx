@@ -24,6 +24,7 @@ import Board, {
 } from './routes/board'
 import {Root} from './routes/root'
 import {action as destroyAction} from './routes/destroyBoard'
+import BoardDetail from './routes/board'
 
 const queryClient: QueryClient = new QueryClient()
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ':boardId',
-            element: <Board />,
+            element: <BoardDetail />,
             loader: boardLoader(queryClient),
             action: boardAction(queryClient),
           },

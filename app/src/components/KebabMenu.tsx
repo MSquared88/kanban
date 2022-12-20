@@ -1,15 +1,11 @@
 import * as React from 'react'
 import {Menu, Transition} from '@headlessui/react'
 import IconVerticalEllipsis from '../assets/icon-vertical-ellipsis'
-import {useParams, Link, useSearchParams} from 'react-router-dom'
-import {useBoardDetail} from '../utils/hooks/hooks.board'
-import DestroyBoardModal from './nav/DestroyBoardModal'
-import {Board} from '../types'
+import {useParams, useSearchParams} from 'react-router-dom'
 
 export default function KebabMenu() {
   const params = useParams()
   const [searhParams, setSearchParams] = useSearchParams()
-  const {data: board, isSuccess} = useBoardDetail(params.boardId as string)
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -27,7 +23,12 @@ export default function KebabMenu() {
       >
         <Menu.Items className="absolute right-0 mt-2 mr-4 flex w-52 origin-top-right flex-col items-start rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-darkest">
           <Menu.Item>
-            <button className="w-full p-2 text-left text-gray-medium">{`Edit Board`}</button>
+            <button
+              className="w-full p-2 text-left text-gray-medium "
+              onClick={() => setSearchParams({edit_board: 'true'})}
+            >
+              Edit Board
+            </button>
           </Menu.Item>
           <Menu.Item>
             <button

@@ -1,7 +1,10 @@
 import {useQuery, UseQueryResult} from '@tanstack/react-query'
 import {Board, Column} from '../../types'
 
-export {getBoard, getBoards, addBoard, destroyBoard}
+//exports
+export {getBoard, getBoards, addBoard, destroyBoard, editBoard}
+
+//api url
 const apiURL = import.meta.env.VITE_API_SERVER_URL
 
 //get all boards
@@ -61,6 +64,31 @@ function addBoard(newBoard: Board): Promise<Board> {
   return fetch(`${apiURL}/api/board/`, {
     method: 'POST',
     body: JSON.stringify(newBoard),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }).then(async res => {
+    if (res.status === 401) {
+      throw new Error('Unauthorized')
+    }
+    const data = await res.json()
+    if (res.ok) {
+      return data as Board
+    } else {
+      return Promise.reject(data)
+    }
+  })
+}
+//edit board
+function editBoard(id: Board['id'], updatedBoard: Board): Promise<Board> {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    throw new Error('Unauthorized')
+  }
+  return fetch(`${apiURL}/api/board/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(updatedBoard),
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
