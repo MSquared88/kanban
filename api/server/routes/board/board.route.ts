@@ -62,9 +62,14 @@ router.put(
     const {board} = request.body
 
     try {
-      const updatedBoard = await boardModel.updateBoard(id, board)
+      const updatedBoard = await boardModel.updateBoard(
+        id,
+        board,
+        board.columns,
+      )
       response.status(200).json(updatedBoard)
     } catch (error) {
+      console.log(error)
       response.status(500).json({message: 'could not update board', error})
     }
   },
