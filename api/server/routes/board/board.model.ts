@@ -50,9 +50,24 @@ export async function addBoard(
   })
 }
 
-export async function updateBoard(id: Board['id'], board: Board) {
-  console.log(board)
-  return prisma.board.update({where: {id}, data: {...board}})
+export async function updateBoard(
+  id: Board['id'],
+  board: Board,
+  columns: Column[],
+) {
+  columns.forEach(async column => {
+    await prisma.column.update({
+      where: {id: column.id},
+      data: {...column},
+    })
+  })
+  return prisma.board.update({
+    where: {id},
+    data: {...board},
+    include: {
+      columns: true,
+    },
+  })
 }
 
 export async function removeBoard(id: Board['id']) {
