@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import {v4 as uuid} from 'uuid'
 import {Form, useActionData, useNavigate} from 'react-router-dom'
 import Modal from '../Modal'
 import FormInput from '../form/FormInput'
@@ -19,7 +18,7 @@ export default function AddBoardForm() {
   const [columns, setColumns] = React.useState<ColumnInput[]>([])
 
   function addColumn() {
-    setColumns([...columns, {id: uuid(), name: ''}])
+    setColumns([...columns, {id: crypto.randomUUID(), name: ''}])
   }
 
   function removeColumn(columnId: ColumnInput['id']) {
@@ -58,9 +57,11 @@ export default function AddBoardForm() {
 
         <InputLabel label="Board Columns">
           <ul className="flex max-h-60 flex-col gap-4 overflow-y-scroll ">
-            {columns.map(column => (
+            {columns.map((column, i) => (
               <li className="flex flex-row gap-4" key={column.id}>
                 <FormInput
+                  id={column.id}
+                  index={i}
                   placeholder="column name"
                   ariaLabel="column"
                   type="text"
@@ -81,6 +82,7 @@ export default function AddBoardForm() {
                     className="fill-gray-medium focus:fill-red-primary"
                   />
                 </button>
+                <input type="hidden" name="id" value={column.id} />
               </li>
             ))}
           </ul>
