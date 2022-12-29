@@ -20,12 +20,22 @@ const Login: React.FC = () => {
     // call the data fetching function
     setToken().catch(console.error)
   }, [isAuthenticated])
-
-  // if authenticated, redirect to board page
-  return isAuthenticated ? (
-    <Link to="/board">go to boards</Link>
-  ) : (
-    <LoginButton />
+  return (
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-darkest ">
+      <main className="flex h-52 w-52 items-center justify-center bg-gray-dark">
+        {isAuthenticated ? (
+          <Link
+            to="/board"
+            className="flex h-8 w-36 items-center justify-center rounded-full bg-purple-primary text-white"
+            h-8
+          >
+            go to boards
+          </Link>
+        ) : (
+          <LoginButton />
+        )}
+      </main>
+    </div>
   )
 }
 
@@ -40,7 +50,10 @@ const LoginButton: React.FC = () => {
   }
 
   return (
-    <button className="" onClick={handleLogin}>
+    <button
+      className="flex h-8 w-36 items-center justify-center rounded-full bg-purple-primary text-white"
+      onClick={handleLogin}
+    >
       Log In
     </button>
   )
