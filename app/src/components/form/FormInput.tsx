@@ -5,28 +5,28 @@ import {ZodError, ZodErrorMap} from 'zod/lib/ZodError'
 
 interface FormInputProps {
   id?: string
+  index?: number
+  className?: string
+  type?: string
   name: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  type?: string
-  error?: any
   placeholder?: string
-  required?: boolean
   defaultValue?: string
+  error?: any
   ariaLabel?: string
-  className?: string
 }
 
 const FormInput: React.FC<FormInputProps> = ({
+  id,
+  index,
+  className,
+  type = 'text',
   name,
   onChange,
-  type = 'text',
-  error,
   placeholder,
-  required,
   defaultValue,
+  error,
   ariaLabel,
-  className,
-  id,
 }) => {
   return (
     <>
@@ -41,13 +41,12 @@ const FormInput: React.FC<FormInputProps> = ({
           className,
         ])}
         placeholder={placeholder}
-        required={required}
         defaultValue={defaultValue}
         aria-label={ariaLabel}
       />
       {error?.fieldErrors[name] && (
         <span className="error text-sm text-red-primary">
-          {error?.fieldErrors[name]}
+          {error?.fieldErrors[name][index || 0]}
         </span>
       )}
     </>
