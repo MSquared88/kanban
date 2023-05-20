@@ -14,7 +14,7 @@ export type Board = {
  *
  */
 export type Column = {
-  id?: string
+  id: string
   name: string
   boardId?: string | null
   tasks?: Task[]
