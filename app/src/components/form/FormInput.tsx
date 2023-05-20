@@ -1,7 +1,6 @@
 import React from 'react'
 
 import classname from 'classnames'
-import {ZodError, ZodErrorMap} from 'zod/lib/ZodError'
 
 interface FormInputProps {
   id?: string
@@ -14,6 +13,9 @@ interface FormInputProps {
   defaultValue?: string
   error?: any
   ariaLabel?: string
+  register?: any
+  required?: boolean
+  disabled?: boolean
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -27,14 +29,19 @@ const FormInput: React.FC<FormInputProps> = ({
   defaultValue,
   error,
   ariaLabel,
+  register,
+  required,
+  disabled,
 }) => {
   return (
     <>
       <input
+        {...(register && {...register(name, {required})})}
         id={id}
         type={type}
         name={name}
         onChange={onChange}
+        disabled={disabled}
         className={classname([
           'rounded-md border-[1px] border-gray-medium p-2 font-semibold text-black focus:border-purple-primary focus:outline-none focus:ring-2 dark:bg-gray-dark',
           error?.fieldErrors[name] ? 'invalid border-red-primary' : '',
