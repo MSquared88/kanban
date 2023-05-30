@@ -29,14 +29,11 @@ const FormInput: React.FC<FormInputProps> = ({
   defaultValue,
   error,
   ariaLabel,
-  register,
-  required,
   disabled,
 }) => {
   return (
     <>
       <input
-        {...(register && {...register(name, {required})})}
         id={id}
         type={type}
         name={name}
