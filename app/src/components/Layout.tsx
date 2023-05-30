@@ -32,7 +32,7 @@ export const Layout = () => {
 
   return (
     <DarkmodeCtx.Provider value={{darkmode, setDarkmode}}>
-      <div className=" flex h-screen w-full flex-col dark:bg-gray-darkest">
+      <div className=" flex h-screen w-full flex-col bg-lines-light dark:bg-gray-darkest">
         <TopBar />
         <Outlet />
       </div>
