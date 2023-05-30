@@ -1,7 +1,6 @@
 import {Fragment} from 'react'
 
 import {Dialog, Transition} from '@headlessui/react'
-import {Form, useNavigate} from 'react-router-dom'
 
 export type ModalProps = {
   onClose: () => void
