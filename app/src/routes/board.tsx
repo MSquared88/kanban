@@ -8,12 +8,13 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 import {useBoardDetail, boardDetailQuery} from '../utils/hooks/hooks.board'
-import {editBoard} from '../utils/api/api.board'
 import DestroyBoardModal from '../components/nav/DestroyBoardModal'
 import EditBoardForm from '../components/form/EditBoardForm'
 import {Board, Column} from '../types'
 
 import {z} from 'zod'
+import {displayValue} from '@tanstack/react-query-devtools/build/lib/utils'
+import IconAddTaskMobile from '../assets/icon-add-task-mobile'
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -38,7 +39,7 @@ export const action =
     const formData = await request.formData()
     console.log(
       '🚀 ~ file: board.tsx:39 ~ formData',
-      formData.getAll('columns'),
+      formData.getAll('new columns'),
     )
 
     //create updated board from form data
@@ -65,13 +66,13 @@ export const action =
       return result.error.flatten()
     }
     console.log(updatedBoard)
-    // //invalidate boards query
-    // //post updated board to api
+    //invalidate boards query
+    //post updated board to api
     // const board = await editBoard(params.boardId, updatedBoard)
     // await queryClient.invalidateQueries(
     //   boardDetailQuery(params.boardId).queryKey,
     // )
-    // //redirect to new board
+    //redirect to new board
     // return redirect(`/board/${board.id}`)
   }
 
@@ -80,12 +81,48 @@ const BoardDetail: React.FunctionComponent = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const {data: board} = useBoardDetail(params.boardId as string)
-  // console.log('🚀 ~ file: board.tsx:50 ~ board', board)
+  console.log('🚀 ~ file: board.tsx:50 ~ board', board)
   return (
     <>
-      <div>
-        <h1>board</h1>
-      </div>
+      {board?.columns?.length === 0 ? (
+        //if no columns
+        <div className="flex h-full items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-8 ">
+            <p className="text-center text-lg font-bold leading-tight text-gray-medium">
+              This board is empty. Create a new column to get started.
+            </p>
+            <button
+              className="flex h-8 items-center justify-center rounded-full bg-purple-primary px-4 py-6 text-white"
+              onClick={() => setSearchParams({edit_board: 'true'})}
+            >
+              <span>+</span>
+              Add New Column
+            </button>
+          </div>
+        </div>
+      ) : (
+        //if columns
+        <div className="flex flex-row gap-4 overflow-x-auto">
+          {board?.columns?.map(column => (
+            <div
+              className=" flex h-full w-72 flex-row items-center justify-start gap-2 whitespace-nowrap"
+              key={column.id}
+            >
+              <div className="h-4 w-4 rounded-full bg-blue-500"></div>
+              <h1 className="text-md font-semibold text-gray-medium">
+                {column.name.toUpperCase()} ({column.tasks?.length})
+              </h1>
+              <div>
+                {column?.tasks?.map(task => (
+                  <div key={task.id}>
+                    <h2>{task?.title}</h2>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       {searchParams.get('destroy_board') && <DestroyBoardModal />}
       {searchParams.get('edit_board') && (
         <EditBoardForm type="edit" board={board} />

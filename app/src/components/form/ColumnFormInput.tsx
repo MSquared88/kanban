@@ -1,15 +1,21 @@
 import * as React from 'react'
 import {Column} from '../../types'
 import CheckboxWithX from './CheckboxWithX'
-import FormInput from './FormInput'
+import HookFormInput from './HookFormInput'
 import classname from 'classnames'
 
 interface FormInputProps {
   column: Column
+  className?: string
   register?: any
+  errors?: any
 }
 
-const ColumnFormInput: React.FC<FormInputProps> = ({column, register}) => {
+const ColumnFormInput: React.FC<FormInputProps> = ({
+  column,
+  register,
+  className,
+}) => {
   const [isChecked, setIsChecked] = React.useState(false)
 
   const toggleCheckbox = () => {
@@ -17,7 +23,7 @@ const ColumnFormInput: React.FC<FormInputProps> = ({column, register}) => {
   }
   return (
     <>
-      <FormInput
+      <HookFormInput
         placeholder="column name"
         ariaLabel="column"
         type="text"
@@ -26,7 +32,10 @@ const ColumnFormInput: React.FC<FormInputProps> = ({column, register}) => {
         disabled={isChecked}
         className={classname([
           'w-full text-gray-medium dark:text-white',
-          isChecked ? ' text-gray-light line-through dark:text-gray-400' : '',
+          isChecked
+            ? ' text-red-primary line-through dark:text-red-primary'
+            : '',
+          className,
         ])}
         defaultValue={column.name}
         register={register}
