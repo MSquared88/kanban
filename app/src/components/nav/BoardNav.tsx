@@ -19,7 +19,7 @@ const BoardNav: React.FunctionComponent<IAppProps> = ({boards, close}) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   return (
-    <div className="flex flex-col font-semibold">
+    <div className="flex flex-col  font-semibold">
       <p className="pl-6 pb-3 text-gray-medium">{`ALL BOARDS (${boards?.length})`}</p>
       <div className="h-36  overflow-y-scroll">
         {boards
