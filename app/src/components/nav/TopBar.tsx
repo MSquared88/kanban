@@ -12,7 +12,7 @@ export default function TopBar() {
   const params = useParams()
 
   return (
-    <div className="flex h-16 flex-row items-center justify-center dark:bg-gray-dark">
+    <div className="flex h-16 flex-row items-center justify-center bg-white dark:bg-gray-dark">
       {isMobile ? (
         <div className="flex w-full flex-row content-between items-center justify-between">
           <div className="mr-1 flex flex-row items-center justify-start">
